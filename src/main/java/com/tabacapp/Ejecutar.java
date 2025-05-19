@@ -1,5 +1,9 @@
 package com.tabacapp;
 
-public class Ejecutar {
+import com.tabacapp.db.DBConnection;
 
+public class Ejecutar {
+    public static void main(String[] args) {
+        DBConnection.getConnection();
+    }
 }
