@@ -1,14 +1,17 @@
 package com.tabacapp.model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
+/**
+ * Clase que representa una venta de productos.
+ */
 public class Venta {
 
 //    Atributos
     private Integer id;
-    private Integer idCliente;
-    private Integer idProducto;
-    private LocalDate fecha;
+    private Cliente cliente;
+    private Producto producto;
+    private Date fecha;
     private Integer cantidad;
     private Double total;
 
@@ -16,16 +19,16 @@ public class Venta {
     public Venta() {
     }
 
-    public Venta(Integer id, Integer idCliente, Integer idProducto, LocalDate fecha, Integer cantidad, Double total) {
+    public Venta(Integer id, Cliente cliente, Producto producto, Date fecha, Integer cantidad, Double total) {
         this.id = id;
-        this.idCliente = idCliente;
-        this.idProducto = idProducto;
+        this.cliente = cliente;
+        this.producto = producto;
         this.fecha = fecha;
         this.cantidad = cantidad;
         this.total = total;
     }
 
-//    Getters y Setters
+//    Gettes y Settes
     public Integer getId() {
         return id;
     }
@@ -34,27 +37,27 @@ public class Venta {
         this.id = id;
     }
 
-    public Integer getIdCliente() {
-        return idCliente;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    public Integer getIdProducto() {
-        return idProducto;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public void setIdProducto(Integer idProducto) {
-        this.idProducto = idProducto;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
-    public LocalDate getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
@@ -72,5 +75,11 @@ public class Venta {
 
     public void setTotal(Double total) {
         this.total = total;
+    }
+
+//    toString
+    @Override
+    public String toString() {
+        return "🧾 Venta #" + id + " | " + cliente.getNombre() + " compró " + cantidad + " x " + producto.getNombre() + " | Total: 💵 " + total + " | 📅 " + fecha;
     }
 }

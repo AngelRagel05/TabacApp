@@ -1,5 +1,8 @@
 package com.tabacapp.model;
 
+/**
+ * Clase que representa un cliente de TabacApp.
+ */
 public class Cliente {
 
 //    Atributos
@@ -21,7 +24,7 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-//    Getters y Setters
+//    Gettes y Settes
     public Integer getId() {
         return id;
     }
@@ -60,5 +63,11 @@ public class Cliente {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+//    toString
+    @Override
+    public String toString() {
+        return "👤 " + nombre + " | Edad: " + edad + " | 📧 " + email + " | 📞 " + telefono;
     }
 }

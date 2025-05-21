@@ -1,23 +1,27 @@
 package com.tabacapp.model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
+/**
+ * Clase que representa un producto.
+ */
 public class Producto {
-    //    Atributos
+
+//    Atributos
     private Integer id;
     private String nombre;
     private String marca;
     private String tipo;
     private Double precio;
     private Integer stock;
-    private LocalDate fechaAlta;
-    private Integer idProveedor;
+    private Date fechaAlta;
+    private Proveedor proveedor;
 
-    //    Constructores
+//    Constructores
     public Producto() {
     }
 
-    public Producto(Integer id, String nombre, String marca, String tipo, Double precio, Integer stock, LocalDate fechaAlta, Integer idProveedor) {
+    public Producto(Integer id, String nombre, String marca, String tipo, Double precio, Integer stock, Date fechaAlta, Proveedor proveedor) {
         this.id = id;
         this.nombre = nombre;
         this.marca = marca;
@@ -25,10 +29,10 @@ public class Producto {
         this.precio = precio;
         this.stock = stock;
         this.fechaAlta = fechaAlta;
-        this.idProveedor = idProveedor;
+        this.proveedor = proveedor;
     }
 
-    // Getters y Setters
+//    Gettes y Settes
     public Integer getId() {
         return id;
     }
@@ -77,19 +81,25 @@ public class Producto {
         this.stock = stock;
     }
 
-    public LocalDate getFechaAlta() {
+    public Date getFechaAlta() {
         return fechaAlta;
     }
 
-    public void setFechaAlta(LocalDate fechaAlta) {
+    public void setFechaAlta(Date fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
 
-    public Integer getIdProveedor() {
-        return idProveedor;
+    public Proveedor getProveedor() {
+        return proveedor;
     }
 
-    public void setIdProveedor(Integer idProveedor) {
-        this.idProveedor = idProveedor;
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
+
+//    toString
+    @Override
+    public String toString() {
+        return "🛒 " + nombre + " (" + tipo + " - " + marca + ") | 💲" + precio + " | Stock: " + stock;
     }
 }

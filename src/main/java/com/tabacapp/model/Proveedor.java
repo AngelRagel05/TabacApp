@@ -1,5 +1,8 @@
 package com.tabacapp.model;
 
+/**
+ * Clase que representa un proveedor en el sistema TabacApp.
+ */
 public class Proveedor {
 
 //    Atributos
@@ -8,7 +11,7 @@ public class Proveedor {
     private String telefono;
     private String email;
 
-//    Constructores
+//    Cosntructores
     public Proveedor() {
     }
 
@@ -19,7 +22,7 @@ public class Proveedor {
         this.email = email;
     }
 
-//    Getters y Setters
+//    Gettes y Settes
     public Integer getId() {
         return id;
     }
@@ -50,5 +53,11 @@ public class Proveedor {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+//    toString
+    @Override
+    public String toString() {
+        return "🏭 " + nombre + " | 📧 " + email + " | ☎ " + telefono;
     }
 }

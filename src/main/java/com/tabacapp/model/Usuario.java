@@ -1,5 +1,8 @@
 package com.tabacapp.model;
 
+/**
+ * Clase que representa un usuario del sistema.
+ */
 public class Usuario {
 
 //    Atributos
@@ -7,21 +10,21 @@ public class Usuario {
     private String nombreUsuario;
     private String contraseña;
     private String rol;
-    private Integer idCliente; // null si es admin
+    private Cliente cliente;
 
 //    Constructores
     public Usuario() {
     }
 
-    public Usuario(Integer id, String nombreUsuario, String contraseña, String rol, Integer idCliente) {
+    public Usuario(Integer id, String nombreUsuario, String contraseña, String rol, Cliente cliente) {
         this.id = id;
         this.nombreUsuario = nombreUsuario;
         this.contraseña = contraseña;
         this.rol = rol;
-        this.idCliente = idCliente;
+        this.cliente = cliente;
     }
 
-//    Getters y Setters
+//    Gettes y Settes
     public Integer getId() {
         return id;
     }
@@ -54,11 +57,17 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public Integer getIdCliente() {
-        return idCliente;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+//    ToString
+    @Override
+    public String toString() {
+        return "🔐 Usuario: " + nombreUsuario + " | Rol: " + rol + (cliente != null ? " | Cliente: " + cliente.getNombre() : " (Admin)");
     }
 }
