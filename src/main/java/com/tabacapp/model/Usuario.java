@@ -5,14 +5,14 @@ package com.tabacapp.model;
  */
 public class Usuario {
 
-//    Atributos
+    //    Atributos
     private Integer id;
     private String nombreUsuario;
     private String contraseña;
     private String rol;
     private Cliente cliente;
 
-//    Constructores
+    //    Constructores
     public Usuario() {
     }
 
@@ -24,7 +24,7 @@ public class Usuario {
         this.cliente = cliente;
     }
 
-//    Gettes y Settes
+    //    Getters y Setters
     public Integer getId() {
         return id;
     }
@@ -65,7 +65,7 @@ public class Usuario {
         this.cliente = cliente;
     }
 
-//    ToString
+    //    ToString
     @Override
     public String toString() {
         return "🔐 Usuario: " + nombreUsuario + " | Rol: " + rol + (cliente != null ? " | Cliente: " + cliente.getNombre() : " (Admin)");

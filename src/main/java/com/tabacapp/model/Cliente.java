@@ -5,14 +5,14 @@ package com.tabacapp.model;
  */
 public class Cliente {
 
-//    Atributos
+    //    Atributos
     private Integer id;
     private String nombre;
     private Integer edad;
     private String email;
     private String telefono;
 
-//    Constructores
+    //    Constructores
     public Cliente() {
     }
 
@@ -24,7 +24,7 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-//    Gettes y Settes
+    //    Getters y Setters
     public Integer getId() {
         return id;
     }
@@ -65,7 +65,7 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-//    toString
+    //    toString
     @Override
     public String toString() {
         return "👤 " + nombre + " | Edad: " + edad + " | 📧 " + email + " | 📞 " + telefono;

@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class Producto {
 
-//    Atributos
+    //    Atributos
     private Integer id;
     private String nombre;
     private String marca;
@@ -17,7 +17,7 @@ public class Producto {
     private Date fechaAlta;
     private Proveedor proveedor;
 
-//    Constructores
+    //    Constructores
     public Producto() {
     }
 
@@ -32,7 +32,7 @@ public class Producto {
         this.proveedor = proveedor;
     }
 
-//    Gettes y Settes
+    //    Getters y Setters
     public Integer getId() {
         return id;
     }
@@ -97,9 +97,10 @@ public class Producto {
         this.proveedor = proveedor;
     }
 
-//    toString
+    //    toString
     @Override
     public String toString() {
-        return "🛒 " + nombre + " (" + tipo + " - " + marca + ") | 💲" + precio + " | Stock: " + stock;
+        return "🛒 " + nombre + " (" + tipo + " - " + marca + ") | 💲" + precio + " | Stock: " + stock +
+                (proveedor != null ? " | Proveedor: " + proveedor.getNombre() : "");
     }
 }

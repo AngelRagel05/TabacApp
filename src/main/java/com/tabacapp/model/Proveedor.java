@@ -5,13 +5,13 @@ package com.tabacapp.model;
  */
 public class Proveedor {
 
-//    Atributos
+    //    Atributos
     private Integer id;
     private String nombre;
     private String telefono;
     private String email;
 
-//    Cosntructores
+    //    Cosntructores
     public Proveedor() {
     }
 
@@ -22,7 +22,7 @@ public class Proveedor {
         this.email = email;
     }
 
-//    Gettes y Settes
+    //    Getters y Setters
     public Integer getId() {
         return id;
     }
@@ -55,7 +55,7 @@ public class Proveedor {
         this.email = email;
     }
 
-//    toString
+    //    toString
     @Override
     public String toString() {
         return "🏭 " + nombre + " | 📧 " + email + " | ☎ " + telefono;

@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class Venta {
 
-//    Atributos
+    //    Atributos
     private Integer id;
     private Cliente cliente;
     private Producto producto;
@@ -15,7 +15,7 @@ public class Venta {
     private Integer cantidad;
     private Double total;
 
-//    Constructores
+    //    Constructores
     public Venta() {
     }
 
@@ -28,7 +28,7 @@ public class Venta {
         this.total = total;
     }
 
-//    Gettes y Settes
+    //    Getters y Setters
     public Integer getId() {
         return id;
     }
@@ -77,7 +77,7 @@ public class Venta {
         this.total = total;
     }
 
-//    toString
+    //    toString
     @Override
     public String toString() {
         return "🧾 Venta #" + id + " | " + cliente.getNombre() + " compró " + cantidad + " x " + producto.getNombre() + " | Total: 💵 " + total + " | 📅 " + fecha;
