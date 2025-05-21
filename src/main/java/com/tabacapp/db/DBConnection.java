@@ -40,4 +40,10 @@ public class DBConnection {
             }
         }
     }
+
+    public static void reconectar() {
+        cerrarConexion();
+        getConnection();
+    }
+
 }
