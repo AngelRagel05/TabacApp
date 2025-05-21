@@ -15,20 +15,19 @@ public class DBConnection {
 
     // Metodo estático para obtener la conexión
     public static Connection getConnection() {
-        if (connection == null) {
-            try {
-                Class.forName("com.mysql.cj.jdbc.Driver");  // Carga explícita del driver
+        try {
+            if (connection == null || connection.isClosed()) {
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 System.out.println("✅ Conexión exitosa a la base de datos.");
-            } catch (ClassNotFoundException e) {
-                System.err.println("❌ Driver JDBC no encontrado: " + e.getMessage());
-            } catch (SQLException e) {
-                System.err.println("❌ Error al conectar a la base de datos: " + e.getMessage());
             }
+        } catch (ClassNotFoundException e) {
+            System.err.println("❌ Driver JDBC no encontrado: " + e.getMessage());
+        } catch (SQLException e) {
+            System.err.println("❌ Error al conectar a la base de datos: " + e.getMessage());
         }
         return connection;
     }
-
 
     // Metodo para cerrar la conexión
     public static void cerrarConexion() {
