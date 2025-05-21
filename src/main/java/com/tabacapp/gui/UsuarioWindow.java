@@ -10,25 +10,26 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class ClienteWindow extends JFrame {
+public class UsuarioWindow extends JFrame {
 
     private ProductoDAO productoDAO;
     private JTextArea textArea;
+    private MenuWindow menuWindow;
 
-    public ClienteWindow(Connection conn) {
+    public UsuarioWindow(MenuWindow menuWindow, Connection conn) {
+        this.menuWindow = menuWindow;
         this.productoDAO = new ProductoDAO(conn);
 
-        setTitle("Panel Cliente - Ver Productos");
+        setTitle("TabacApp - Usuario");
         setSize(700, 500);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
         JPanel botonesPanel = new JPanel();
         JButton btnNombre = new JButton("🔍 Buscar por nombre");
-        JButton btnFecha = new JButton("📅 Buscar por fecha");
+        // Añade otros botones aquí (marca, proveedor, precio) si quieres
 
         botonesPanel.add(btnNombre);
-        botonesPanel.add(btnFecha);
 
         textArea = new JTextArea();
         textArea.setEditable(false);
@@ -38,7 +39,13 @@ public class ClienteWindow extends JFrame {
         add(scroll, BorderLayout.CENTER);
 
         btnNombre.addActionListener(e -> buscarPorNombre());
-        btnFecha.addActionListener(e -> buscarPorFecha());
+
+        JButton btnVolver = new JButton("Volver al menú");
+        btnVolver.addActionListener(e -> {
+            dispose();
+            menuWindow.setVisible(true);
+        });
+        add(btnVolver, BorderLayout.SOUTH);
 
         setVisible(true);
     }
@@ -46,21 +53,10 @@ public class ClienteWindow extends JFrame {
     private void buscarPorNombre() {
         try {
             String nombre = JOptionPane.showInputDialog(this, "Introduce el nombre del producto:");
-            List<Producto> productos = productoDAO.buscarPorNombre(nombre);
+            List<Producto> productos = productoDAO.buscar(nombre, null, null, null, null);
             mostrarProductos(productos);
         } catch (Exception e) {
             mostrarError("Error en búsqueda por nombre");
-        }
-    }
-
-    private void buscarPorFecha() {
-        try {
-            String input = JOptionPane.showInputDialog(this, "Introduce la fecha (YYYY-MM-DD):");
-            Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(input);
-            List<Producto> productos = productoDAO.buscarPorFecha(fecha);
-            mostrarProductos(productos);
-        } catch (Exception e) {
-            mostrarError("Error en búsqueda por fecha");
         }
     }
 

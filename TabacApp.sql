@@ -41,12 +41,12 @@ CREATE TABLE usuarios (
 
 CREATE TABLE ventas (
     id_venta INT AUTO_INCREMENT PRIMARY KEY,
-    id_cliente INT NOT NULL,
+    id_cliente INT,
     id_producto INT NOT NULL,
     fecha DATE NOT NULL,
     cantidad INT NOT NULL,
     total DECIMAL(6,2) NOT NULL,
-    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente) ON DELETE SET NULL,
     FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
 );
 

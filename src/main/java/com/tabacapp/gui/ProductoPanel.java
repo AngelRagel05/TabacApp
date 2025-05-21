@@ -1,65 +1,90 @@
 package com.tabacapp.gui;
 
-import com.tabacapp.dao.ProductoDAO;
+import com.tabacapp.db.ProductoDAO;
 import com.tabacapp.model.Producto;
-import com.tabacapp.model.Proveedor;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.sql.Connection;
 import java.util.List;
 
-/**
- * Panel reutilizable para mostrar y gestionar productos.
- * Se puede incluir dentro de una ventana como AdminWindow.
- */
 public class ProductoPanel extends JPanel {
 
     private ProductoDAO productoDAO;
-    private JTable tablaProductos;
-    private DefaultTableModel modeloTabla;
+    private JTable tabla;
+    private DefaultTableModel modelo;
 
-    public ProductoPanel(Connection conn) {
-        this.productoDAO = new ProductoDAO(conn);
+    public ProductoPanel(ProductoDAO productoDAO) {
+        this.productoDAO = productoDAO;
 
         setLayout(new BorderLayout());
 
-        // Configuración de la tabla
-        modeloTabla = new DefaultTableModel(new Object[]{"ID", "Nombre", "Marca", "Tipo", "Precio", "Stock", "Proveedor"}, 0);
-        tablaProductos = new JTable(modeloTabla);
-        JScrollPane scrollPane = new JScrollPane(tablaProductos);
-        add(scrollPane, BorderLayout.CENTER);
+        modelo = new DefaultTableModel(new Object[]{"ID", "Nombre", "Marca", "Tipo", "Precio", "Stock", "Proveedor"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Para que no se edite la tabla directamente
+            }
+        };
 
-        // Botón recargar
-        JButton btnRecargar = new JButton("Recargar productos");
+        tabla = new JTable(modelo);
+        add(new JScrollPane(tabla), BorderLayout.CENTER);
+
+        JButton btnRecargar = new JButton("Recargar Productos");
         btnRecargar.addActionListener(e -> cargarProductos());
         add(btnRecargar, BorderLayout.SOUTH);
 
-        // Cargar productos al iniciar
         cargarProductos();
     }
 
-//    Carga todos los productos desde la base de datos y los muestra en la tabla.
-    private void cargarProductos() {
+    public void cargarProductos() {
         try {
-            modeloTabla.setRowCount(0); // Limpiar tabla
+            modelo.setRowCount(0);
             List<Producto> productos = productoDAO.obtenerTodos();
 
             for (Producto p : productos) {
-                modeloTabla.addRow(new Object[]{
+                modelo.addRow(new Object[]{
                         p.getId(),
                         p.getNombre(),
                         p.getMarca(),
                         p.getTipo(),
                         p.getPrecio(),
                         p.getStock(),
-                        p.getProveedor().getNombre()
+                        p.getProveedor() != null ? p.getProveedor().getNombre() : "N/A"
                 });
             }
-
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error al cargar productos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    /**
+     * Busca productos filtrando por nombre, marca, proveedor o precio máximo.
+     * Carga en la tabla solo los que cumplan.
+     */
+    public void buscarProductos(String nombre, String marca, String proveedor, Double precioMaximo) {
+        try {
+            modelo.setRowCount(0);
+
+            // precioMin = null, precioMax = precioMaximo
+            List<Producto> productos = productoDAO.buscar(nombre, marca, null, precioMaximo, proveedor);
+
+            for (Producto p : productos) {
+                modelo.addRow(new Object[]{
+                        p.getId(),
+                        p.getNombre(),
+                        p.getMarca(),
+                        p.getTipo(),
+                        p.getPrecio(),
+                        p.getStock(),
+                        p.getProveedor() != null ? p.getProveedor().getNombre() : "N/A"
+                });
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al buscar productos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public JTable getTabla() {
+        return tabla;
     }
 }

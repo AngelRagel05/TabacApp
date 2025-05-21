@@ -1,5 +1,6 @@
 package com.tabacapp.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -103,4 +104,6 @@ public class Producto {
         return "🛒 " + nombre + " (" + tipo + " - " + marca + ") | 💲" + precio + " | Stock: " + stock +
                 (proveedor != null ? " | Proveedor: " + proveedor.getNombre() : "");
     }
+
+
 }
