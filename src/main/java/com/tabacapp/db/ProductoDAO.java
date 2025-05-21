@@ -17,7 +17,6 @@ public class ProductoDAO {
     // Atributo para manejar la conexión a la base de datos
     private Connection conn;
 
-
 //    Constructor que recibe una conexión ya establecida.
     public ProductoDAO(Connection conn) {
         this.conn = conn;
@@ -91,7 +90,6 @@ public class ProductoDAO {
             stmt.executeUpdate();
         }
     }
-
 
 //    Elimina un producto por su ID.
     public void eliminarPorId(int id) throws SQLException {
