@@ -25,12 +25,18 @@ public class MenuWindow extends JFrame {
         panel.setBackground(new Color(0x4E342E)); // Mismo color que el fondo de la ventana
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30)); // Margen interno (padding) de 30px en todos lados
 
-        // Carga una imagen desde recursos y la escala a 160x160 px para mostrarla
-        ImageIcon icon = new ImageIcon("src/main/resources/img/TabacApp.png");
+        // Icono pequeño en la barra de título
+        ImageIcon iconoPeque = new ImageIcon("src/main/resources/img/Logo1.png");
+        Image iconImage = iconoPeque.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+        setIconImage(iconImage);
+
+        // Imagen grande dentro de la ventana
+        ImageIcon logoGrande = new ImageIcon("src/main/resources/img/TabacApp.png");
         JLabel imageLabel = new JLabel();
-        imageLabel.setIcon(new ImageIcon(icon.getImage().getScaledInstance(160, 160, Image.SCALE_SMOOTH)));
-        imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centra la imagen horizontalmente
+        imageLabel.setIcon(new ImageIcon(logoGrande.getImage().getScaledInstance(160, 160, Image.SCALE_SMOOTH)));
+        imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(imageLabel);
+
 
         panel.add(Box.createVerticalStrut(30)); // Espacio vertical extra entre componentes
 
