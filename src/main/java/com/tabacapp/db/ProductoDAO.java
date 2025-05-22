@@ -1,5 +1,6 @@
 package com.tabacapp.db;
 
+import com.tabacapp.db.interfaz.IProductoDAO;
 import com.tabacapp.model.Producto;
 import com.tabacapp.model.Proveedor;
 
@@ -7,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductoDAO {
+public class ProductoDAO implements IProductoDAO {
 
     private Connection conn;  // Guarda la conexión a la base de datos para hacer consultas y actualizaciones
 
