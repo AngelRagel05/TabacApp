@@ -33,13 +33,17 @@ public class MenuWindow extends JFrame {
 
         JButton btnAdmin = new JButton("🔐 Admin");
         JButton btnUsuario = new JButton("👤 Usuario");
+        JButton btnSalir = new JButton("🚪 Salir");
 
         configurarBoton(btnAdmin);
         configurarBoton(btnUsuario);
+        configurarBoton(btnSalir);
 
         panel.add(btnAdmin);
-        panel.add(Box.createVerticalStrut(15)); // Espacio entre botones
+        panel.add(Box.createVerticalStrut(15));
         panel.add(btnUsuario);
+        panel.add(Box.createVerticalStrut(15));
+        panel.add(btnSalir);
 
         add(panel);
 
@@ -69,16 +73,36 @@ public class MenuWindow extends JFrame {
             this.setVisible(false);
         });
 
+        btnSalir.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres salir?", "Confirmar salida", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                System.exit(0);
+            }
+        });
+
         setVisible(true);
     }
 
     private void configurarBoton(JButton boton) {
         boton.setFont(new Font("SansSerif", Font.BOLD, 16));
-        boton.setBackground(new Color(0xFFF3E0)); // Beige claro
+        boton.setBackground(new Color(0x8D6E63)); // Marrón claro
+        boton.setForeground(new Color(0x000000)); // Texto crema claro
         boton.setFocusPainted(false);
-        boton.setBorder(BorderFactory.createLineBorder(new Color(0x795548), 2));
+        boton.setBorder(BorderFactory.createLineBorder(new Color(0x6D4C41), 2)); // Borde marrón medio
         boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         boton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        boton.setMaximumSize(new Dimension(200, 40)); // Botón más pequeño
+        boton.setMaximumSize(new Dimension(200, 40));
+
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                boton.setBackground(new Color(0xD7CCC8));
+                boton.setForeground(Color.BLACK);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton.setBackground(new Color(0x8D6E63));
+                boton.setForeground(new Color(0x000000));
+            }
+        });
     }
 }
