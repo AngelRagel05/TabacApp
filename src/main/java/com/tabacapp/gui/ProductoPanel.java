@@ -90,8 +90,9 @@ public class ProductoPanel extends JPanel {
 
     // 🔽 Clase interna para renderizado en zebra (gris / blanco)
     private static class ZebraRenderer extends DefaultTableCellRenderer {
-        private static final Color GRIS_CLARO = new Color(206, 206, 206);
+        private static final Color GRIS_CLARO = new Color(230, 230, 230);
         private static final Color BLANCO = Color.WHITE;
+        private static final Color SELECCION = new Color(184, 207, 229);
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
@@ -99,17 +100,16 @@ public class ProductoPanel extends JPanel {
 
             Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-            if (!isSelected) {
-                if (row % 2 == 0) {
-                    c.setBackground(GRIS_CLARO);
-                } else {
-                    c.setBackground(BLANCO);
-                }
+            if (isSelected) {
+                c.setBackground(SELECCION);
+                c.setForeground(Color.BLACK); // 👈 texto negro al seleccionar
             } else {
-                c.setBackground(new Color(184, 207, 229)); // Color para fila seleccionada
+                c.setForeground(Color.BLACK); // 👈 texto negro por defecto
+                c.setBackground((row % 2 == 0) ? GRIS_CLARO : BLANCO);
             }
 
             return c;
         }
     }
+
 }
