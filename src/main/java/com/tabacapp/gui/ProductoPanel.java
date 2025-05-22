@@ -90,9 +90,9 @@ public class ProductoPanel extends JPanel {
 
     // 🔽 Clase interna para renderizado en zebra (gris / blanco)
     private static class ZebraRenderer extends DefaultTableCellRenderer {
-        private static final Color GRIS_CLARO = new Color(230, 230, 230);
+        private static final Color GRIS_CLARO = new Color(190, 190, 190);
         private static final Color BLANCO = Color.WHITE;
-        private static final Color SELECCION = new Color(184, 207, 229);
+        private static final Color SELECCION = new Color(163, 201, 239);
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,

@@ -15,10 +15,10 @@ public class AdminWindow extends JFrame {
     private ProductoPanel productoPanel;
     private JTextArea textArea;
     private Connection conn;
-    private MenuWindow menuWindow2;
+    private MenuWindow menuWindow;
 
     public AdminWindow(MenuWindow menuWindow2, Connection conn) {
-        this.menuWindow2 = this.menuWindow2;
+        this.menuWindow = menuWindow2;
         this.productoDAO = new ProductoDAO(conn);
 
         setTitle("TabacApp - Panel Administrador");
@@ -26,15 +26,22 @@ public class AdminWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
+        getContentPane().setBackground(new Color(0x4E342E)); // Marrón oscuro
 
         productoPanel = new ProductoPanel(productoDAO);
         add(productoPanel, BorderLayout.CENTER);
 
+        // Panel de botones con fondo oscuro
         JPanel panelBotones = new JPanel();
-        JButton btnAgregar = new JButton("➕ Agregar producto");
-        JButton btnEliminar = new JButton("❌ Eliminar producto");
-        JButton btnBeneficio = new JButton("💰 Calcular beneficio total");
-        JButton btnSalir = new JButton("Salir al menú");
+        panelBotones.setBackground(new Color(0x4E342E)); // Marrón oscuro
+        panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+
+        // Botones estilizados
+        JButton btnAgregar = crearBoton("➕ Agregar producto");
+        JButton btnEliminar = crearBoton("❌ Eliminar producto");
+        JButton btnBeneficio = crearBoton("💰 Calcular beneficio total");
+        btnBeneficio.setPreferredSize(new Dimension(280, 40));  // Más ancho para que no se corte
+        JButton btnSalir = crearBoton("Salir al menú");
 
         panelBotones.add(btnAgregar);
         panelBotones.add(btnEliminar);
@@ -43,10 +50,15 @@ public class AdminWindow extends JFrame {
 
         add(panelBotones, BorderLayout.NORTH);
 
+        // Área de texto con estilo
         textArea = new JTextArea(5, 20);
         textArea.setEditable(false);
+        textArea.setBackground(new Color(0x4E342E)); // Marrón oscuro
+        textArea.setForeground(new Color(0xFFF8E1)); // Beige claro
+        textArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
         add(new JScrollPane(textArea), BorderLayout.SOUTH);
 
+        // Listeners
         btnAgregar.addActionListener(e -> agregarProducto());
         btnEliminar.addActionListener(e -> eliminarProducto());
         btnBeneficio.addActionListener(e -> calcularBeneficio());
@@ -58,9 +70,32 @@ public class AdminWindow extends JFrame {
         setVisible(true);
     }
 
+    // Método para estilizar botones
+    private JButton crearBoton(String texto) {
+        JButton boton = new JButton(texto);
+        boton.setFont(new Font("SansSerif", Font.BOLD, 14));
+        boton.setBackground(new Color(0x8D6E63)); // Marrón claro
+        boton.setForeground(new Color(0x000000)); // Negro
+        boton.setFocusPainted(false);
+        boton.setBorder(BorderFactory.createLineBorder(new Color(0x6D4C41), 2)); // Marrón medio
+        boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        boton.setPreferredSize(new Dimension(180, 40));
+
+        // Efecto hover
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                boton.setBackground(new Color(0xD7CCC8)); // Beige claro
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton.setBackground(new Color(0x8D6E63)); // Marrón claro
+            }
+        });
+
+        return boton;
+    }
+
     private void agregarProducto() {
-        // Aquí debes implementar un diálogo para pedir datos de nuevo producto
-        // Por ejemplo, JOptionPane.showInputDialog o un formulario personalizado
         try {
             String nombre = JOptionPane.showInputDialog(this, "Nombre del producto:");
             if (nombre == null || nombre.trim().isEmpty()) return;
@@ -84,7 +119,6 @@ public class AdminWindow extends JFrame {
             String nombreProveedor = JOptionPane.showInputDialog(this, "Proveedor (nombre):");
             if (nombreProveedor == null) nombreProveedor = "";
 
-// Crear objeto Proveedor con solo el nombre
             Proveedor proveedor = new Proveedor();
             proveedor.setNombre(nombreProveedor);
 

@@ -10,10 +10,10 @@ public class UsuarioWindow extends JFrame {
 
     private ProductoDAO productoDAO;
     private ProductoPanel productoPanel;
-    private MenuWindow menuWindow2;
+    private MenuWindow menuWindow;
 
     public UsuarioWindow(MenuWindow menuWindow2, Connection conn) {
-        this.menuWindow2 = menuWindow2;
+        this.menuWindow = menuWindow2;
         this.productoDAO = new ProductoDAO(conn);
 
         setTitle("TabacApp - Usuario");
@@ -21,16 +21,17 @@ public class UsuarioWindow extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        getContentPane().setBackground(new Color(0x4E342E)); // Marrón oscuro
 
         // Panel superior con botones de búsqueda
         JPanel botonesPanel = new JPanel(new FlowLayout());
+        botonesPanel.setBackground(new Color(0x4E342E)); // Marrón oscuro
 
-        JButton btnNombre = new JButton("🔍 Buscar por nombre");
-        JButton btnMarca = new JButton("🔍 Buscar por marca");
-        JButton btnProveedor = new JButton("🔍 Buscar por proveedor");
-        JButton btnPrecioMax = new JButton("🔍 Buscar por precio máximo");
-        JButton btnMostrarTodos = new JButton("🔁 Mostrar todos");
+        JButton btnNombre = crearBoton("🔍 Buscar por nombre");
+        JButton btnMarca = crearBoton("🔍 Buscar por marca");
+        JButton btnProveedor = crearBoton("🔍 Buscar por proveedor");
+        JButton btnPrecioMax = crearBoton("🔍 Buscar por precio máximo");
+        JButton btnMostrarTodos = crearBoton("🔁 Mostrar todos");
 
         botonesPanel.add(btnNombre);
         botonesPanel.add(btnMarca);
@@ -45,12 +46,15 @@ public class UsuarioWindow extends JFrame {
         add(productoPanel, BorderLayout.CENTER);
 
         // Botón volver
-        JButton btnVolver = new JButton("Volver al menú");
+        JButton btnVolver = crearBoton("Volver al menú");
         btnVolver.addActionListener(e -> {
             dispose();
             menuWindow2.setVisible(true);
         });
-        add(btnVolver, BorderLayout.SOUTH);
+        JPanel panelSur = new JPanel();
+        panelSur.setBackground(new Color(0x4E342E));
+        panelSur.add(btnVolver);
+        add(panelSur, BorderLayout.SOUTH);
 
         // Acciones de botones
         btnNombre.addActionListener(e -> {
@@ -89,5 +93,30 @@ public class UsuarioWindow extends JFrame {
         btnMostrarTodos.addActionListener(e -> productoPanel.cargarProductos());
 
         setVisible(true);
+    }
+
+    // Metodo para estilizar botones con colores iguales a AdminWindow
+    private JButton crearBoton(String texto) {
+        JButton boton = new JButton(texto);
+        boton.setFont(new Font("SansSerif", Font.BOLD, 14));
+        boton.setBackground(new Color(0x8D6E63)); // Marrón claro
+        boton.setForeground(new Color(0x000000)); // Negro
+        boton.setFocusPainted(false);
+        boton.setBorder(BorderFactory.createLineBorder(new Color(0x6D4C41), 2)); // Marrón medio
+        boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        boton.setPreferredSize(new Dimension(180, 40));
+
+        // Efecto hover
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                boton.setBackground(new Color(0xD7CCC8)); // Beige claro
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton.setBackground(new Color(0x8D6E63)); // Marrón claro
+            }
+        });
+
+        return boton;
     }
 }
