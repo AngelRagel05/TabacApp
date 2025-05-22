@@ -1,7 +1,7 @@
 package com.tabacapp;
 
 import com.tabacapp.db.DBConnection;  // clase que abre conexión, debes tenerla
-import com.tabacapp.gui.MenuWindow;
+import com.tabacapp.gui.*;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -14,7 +14,7 @@ public class Ejecutar {
             // Crear conexión una vez
             Connection conn = DBConnection.getConnection();
 
-            SwingUtilities.invokeLater(() -> new MenuWindow(conn));
+            SwingUtilities.invokeLater(() -> new MenuWindow2(conn));
 
         } catch (Exception e) {
             System.err.println("Error iniciando aplicación: " + e.getMessage());

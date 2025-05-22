@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
 import java.util.Date;
-import java.util.List;
 
 public class AdminWindow extends JFrame {
 
@@ -16,10 +15,10 @@ public class AdminWindow extends JFrame {
     private ProductoPanel productoPanel;
     private JTextArea textArea;
     private Connection conn;
-    private MenuWindow menuWindow;
+    private MenuWindow2 menuWindow2;
 
-    public AdminWindow(MenuWindow menuWindow, Connection conn) {
-        this.menuWindow = menuWindow;
+    public AdminWindow(MenuWindow2 menuWindow2, Connection conn) {
+        this.menuWindow2 = this.menuWindow2;
         this.productoDAO = new ProductoDAO(conn);
 
         setTitle("TabacApp - Panel Administrador");
@@ -53,7 +52,7 @@ public class AdminWindow extends JFrame {
         btnBeneficio.addActionListener(e -> calcularBeneficio());
         btnSalir.addActionListener(e -> {
             dispose();
-            menuWindow.setVisible(true);
+            menuWindow2.setVisible(true);
         });
 
         setVisible(true);

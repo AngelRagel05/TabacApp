@@ -6,18 +6,16 @@ import com.tabacapp.model.Producto;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class UsuarioWindow extends JFrame {
 
     private ProductoDAO productoDAO;
     private JTextArea textArea;
-    private MenuWindow menuWindow;
+    private MenuWindow2 menuWindow2;
 
-    public UsuarioWindow(MenuWindow menuWindow, Connection conn) {
-        this.menuWindow = menuWindow;
+    public UsuarioWindow(MenuWindow2 menuWindow2, Connection conn) {
+        this.menuWindow2 = this.menuWindow2;
         this.productoDAO = new ProductoDAO(conn);
 
         setTitle("TabacApp - Usuario");
@@ -43,7 +41,7 @@ public class UsuarioWindow extends JFrame {
         JButton btnVolver = new JButton("Volver al menú");
         btnVolver.addActionListener(e -> {
             dispose();
-            menuWindow.setVisible(true);
+            menuWindow2.setVisible(true);
         });
         add(btnVolver, BorderLayout.SOUTH);
 
