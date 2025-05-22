@@ -11,31 +11,38 @@ public class MenuWindow extends JFrame {
     public MenuWindow(Connection conn) {
         this.conn = conn;
 
-        setTitle("TabacApp - Menú Principal");
+        setTitle("TabacApp - Menú");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(350, 200);
+        setSize(280, 480); // Tamaño tipo móvil
         setLocationRelativeTo(null);
-        getContentPane().setBackground(new Color(0x4E342E)); // Fondo marrón estanco
+        getContentPane().setBackground(new Color(0x4E342E)); // Marrón oscuro fondo
 
-        JPanel panel = new JPanel(new GridLayout(2, 1, 10, 10));
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBackground(new Color(0x4E342E));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JButton btnAdmin = new JButton("🔐 Entrar como Admin");
-        JButton btnUsuario = new JButton("👤 Entrar como Usuario");
+        // Cargar imagen (colócala en resources y ajusta esta ruta si es necesario)
+        ImageIcon icon = new ImageIcon("src/main/resources/img/TabacApp.png");  // Ruta de la imagen
+        JLabel imageLabel = new JLabel();
+        imageLabel.setIcon(new ImageIcon(icon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)));
+        imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(imageLabel);
 
-        // Estilo de botones
-        Color beige = new Color(0xFFF3E0);
-        Font fuente = new Font("SansSerif", Font.BOLD, 14);
+        panel.add(Box.createVerticalStrut(20)); // Espacio debajo de la imagen
 
-        configurarBoton(btnAdmin, fuente, beige);
-        configurarBoton(btnUsuario, fuente, beige);
+        JButton btnAdmin = new JButton("🔐 Admin");
+        JButton btnUsuario = new JButton("👤 Usuario");
+
+        configurarBoton(btnAdmin);
+        configurarBoton(btnUsuario);
 
         panel.add(btnAdmin);
+        panel.add(Box.createVerticalStrut(15)); // Espacio entre botones
         panel.add(btnUsuario);
+
         add(panel);
 
-        // Acción con contraseña para Admin
         btnAdmin.addActionListener(e -> {
             JPasswordField pwdField = new JPasswordField();
             int option = JOptionPane.showConfirmDialog(
@@ -65,11 +72,13 @@ public class MenuWindow extends JFrame {
         setVisible(true);
     }
 
-    private void configurarBoton(JButton boton, Font fuente, Color fondo) {
-        boton.setFont(fuente);
-        boton.setBackground(fondo);
+    private void configurarBoton(JButton boton) {
+        boton.setFont(new Font("SansSerif", Font.BOLD, 16));
+        boton.setBackground(new Color(0xFFF3E0)); // Beige claro
         boton.setFocusPainted(false);
-        boton.setBorder(BorderFactory.createLineBorder(new Color(0x795548), 2)); // Borde marrón más claro
+        boton.setBorder(BorderFactory.createLineBorder(new Color(0x795548), 2));
         boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        boton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        boton.setMaximumSize(new Dimension(200, 40)); // Botón más pequeño
     }
 }

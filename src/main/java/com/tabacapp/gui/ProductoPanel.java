@@ -4,6 +4,7 @@ import com.tabacapp.db.ProductoDAO;
 import com.tabacapp.model.Producto;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
@@ -22,11 +23,16 @@ public class ProductoPanel extends JPanel {
         modelo = new DefaultTableModel(new Object[]{"ID", "Nombre", "Marca", "Tipo", "Precio", "Stock", "Proveedor"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Para que no se edite la tabla directamente
+                return false;
             }
         };
 
         tabla = new JTable(modelo);
+        tabla.setDefaultRenderer(Object.class, new ZebraRenderer()); // 👈 Aquí aplicamos la clase personalizada
+
+        tabla.setRowHeight(25); // Opcional: altura de las filas
+        tabla.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 14));
+
         add(new JScrollPane(tabla), BorderLayout.CENTER);
 
         JButton btnRecargar = new JButton("Recargar Productos");
@@ -57,15 +63,9 @@ public class ProductoPanel extends JPanel {
         }
     }
 
-    /**
-     * Busca productos filtrando por nombre, marca, proveedor o precio máximo.
-     * Carga en la tabla solo los que cumplan.
-     */
     public void buscarProductos(String nombre, String marca, String proveedor, Double precioMaximo) {
         try {
             modelo.setRowCount(0);
-
-            // precioMin = null, precioMax = precioMaximo
             List<Producto> productos = productoDAO.buscar(nombre, marca, null, precioMaximo, proveedor);
 
             for (Producto p : productos) {
@@ -86,5 +86,30 @@ public class ProductoPanel extends JPanel {
 
     public JTable getTabla() {
         return tabla;
+    }
+
+    // 🔽 Clase interna para renderizado en zebra (gris / blanco)
+    private static class ZebraRenderer extends DefaultTableCellRenderer {
+        private static final Color GRIS_CLARO = new Color(206, 206, 206);
+        private static final Color BLANCO = Color.WHITE;
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                                                       boolean hasFocus, int row, int column) {
+
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            if (!isSelected) {
+                if (row % 2 == 0) {
+                    c.setBackground(GRIS_CLARO);
+                } else {
+                    c.setBackground(BLANCO);
+                }
+            } else {
+                c.setBackground(new Color(184, 207, 229)); // Color para fila seleccionada
+            }
+
+            return c;
+        }
     }
 }
