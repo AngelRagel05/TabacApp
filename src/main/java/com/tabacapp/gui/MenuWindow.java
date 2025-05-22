@@ -6,11 +6,11 @@ import java.sql.Connection;
 
 public class MenuWindow extends JFrame {
 
-    private Connection conn; // Guarda la conexión a la base de datos
+    private Connection con; // Guarda la conexión a la base de datos
 
     // Constructor que recibe la conexión para usarla en otras ventanas
     public MenuWindow(Connection conn) {
-        this.conn = conn;
+        this.con = conn;
 
         // Configuraciones básicas de la ventana principal
         setTitle("TabacApp - Menú"); // Título de la ventana
