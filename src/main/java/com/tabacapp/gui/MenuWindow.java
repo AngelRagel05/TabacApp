@@ -61,7 +61,7 @@ public class MenuWindow extends JFrame {
         // Etiqueta con un eslogan, con fuente serif en cursiva y color claro
         JLabel slogan = new JLabel("El Tabaco No Mata");
         slogan.setAlignmentX(Component.CENTER_ALIGNMENT);
-        slogan.setFont(new Font("Serif", Font.ITALIC, 18));
+        slogan.setFont(new Font("Serif", Font.ITALIC, 20));
         slogan.setForeground(new Color(0xFFF8E1));
         panel.add(slogan);
 
