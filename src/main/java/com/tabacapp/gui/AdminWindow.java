@@ -11,41 +11,42 @@ import java.util.Date;
 
 public class AdminWindow extends JFrame {
 
-    private ProductoDAO productoDAO;    // DAO para gestionar productos en BD
-    private ProductoPanel productoPanel; // Panel que muestra la tabla de productos
-    private JTextArea textArea;          // Área para mostrar mensajes al usuario
+    private ProductoDAO productoDAO;    // Objeto para operaciones BD con productos
+    private ProductoPanel productoPanel; // Panel con tabla de productos
+    private JTextArea textArea;          // Área para mensajes al usuario
     private Connection conn;             // Conexión a BD (no se usa directamente aquí)
-    private MenuWindow menuWindow;       // Ventana menú para volver a ella
+    private MenuWindow menuWindow;       // Referencia a ventana menú para volver
 
+    // Constructor que recibe la ventana menú y conexión a BD
     public AdminWindow(MenuWindow menuWindow2, Connection conn) {
         this.menuWindow = menuWindow2;
-        this.productoDAO = new ProductoDAO(conn); // Inicializa DAO con conexión
+        this.productoDAO = new ProductoDAO(conn); // Inicializa DAO con la conexión
 
-        // Configuración ventana
+        // Configuración básica de la ventana
         setTitle("TabacApp - Panel Administrador");
         setSize(1000, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // Centrar ventana
         setLayout(new BorderLayout());
         getContentPane().setBackground(new Color(0x4E342E)); // Fondo marrón oscuro
 
-        // Panel con la tabla de productos
+        // Crea y añade el panel con la tabla de productos en el centro
         productoPanel = new ProductoPanel(productoDAO);
         add(productoPanel, BorderLayout.CENTER);
 
-        // Panel con botones arriba, fondo marrón oscuro
+        // Panel superior con botones
         JPanel panelBotones = new JPanel();
-        panelBotones.setBackground(new Color(0x4E342E));
-        panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        panelBotones.setBackground(new Color(0x4E342E)); // Fondo marrón oscuro
+        panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10)); // Distribución horizontal con espacio
 
-        // Botones principales con iconos y texto
+        // Crear botones con texto e iconos
         JButton btnAgregar = crearBoton("➕ Agregar producto");
         JButton btnEliminar = crearBoton("❌ Eliminar producto");
         JButton btnBeneficio = crearBoton("💰 Calcular beneficio total");
-        btnBeneficio.setPreferredSize(new Dimension(280, 40));  // Más ancho que los demás
+        btnBeneficio.setPreferredSize(new Dimension(280, 40));  // Botón más ancho
         JButton btnSalir = crearBoton("Salir al menú");
 
-        // Añade los botones al panel de botones
+        // Añade los botones al panel superior
         panelBotones.add(btnAgregar);
         panelBotones.add(btnEliminar);
         panelBotones.add(btnBeneficio);
@@ -53,24 +54,24 @@ public class AdminWindow extends JFrame {
 
         add(panelBotones, BorderLayout.NORTH);
 
-        // Área de texto para mensajes debajo, estilo acorde al fondo
+        // Área de texto en la parte inferior para mostrar mensajes
         textArea = new JTextArea(5, 20);
-        textArea.setEditable(false);
+        textArea.setEditable(false); // Solo lectura
         textArea.setBackground(new Color(0x4E342E)); // Marrón oscuro
-        textArea.setForeground(new Color(0xFFF8E1)); // Beige claro
+        textArea.setForeground(new Color(0xFFF8E1)); // Texto beige claro
         textArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
-        add(new JScrollPane(textArea), BorderLayout.SOUTH);
+        add(new JScrollPane(textArea), BorderLayout.SOUTH); // Scroll si hay mucho texto
 
-        // Acciones para botones
+        // Asigna acciones a los botones
         btnAgregar.addActionListener(e -> agregarProducto());
         btnEliminar.addActionListener(e -> eliminarProducto());
         btnBeneficio.addActionListener(e -> calcularBeneficio());
         btnSalir.addActionListener(e -> {
-            dispose();               // Cierra esta ventana
-            menuWindow2.setVisible(true); // Muestra menú principal otra vez
+            dispose();               // Cierra ventana actual
+            menuWindow2.setVisible(true); // Vuelve a mostrar menú principal
         });
 
-        setVisible(true);
+        setVisible(true); // Mostrar ventana
     }
 
     // Metodo para crear botones con estilo uniforme y efecto hover
@@ -84,25 +85,24 @@ public class AdminWindow extends JFrame {
         boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         boton.setPreferredSize(new Dimension(180, 40));
 
-        // Cambia el color de fondo al pasar el ratón por encima
+        // Cambiar color al pasar ratón (hover)
         boton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                boton.setBackground(new Color(0xD7CCC8)); // Beige claro (hover)
+                boton.setBackground(new Color(0xD7CCC8)); // Beige claro
             }
-
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                boton.setBackground(new Color(0x8D6E63)); // Marrón claro (normal)
+                boton.setBackground(new Color(0x8D6E63)); // Marrón claro
             }
         });
 
         return boton;
     }
 
-    // Agrega un producto pidiendo datos mediante cuadros de diálogo
+    // Metodo para agregar un producto pidiendo datos al usuario con cuadros de diálogo
     private void agregarProducto() {
         try {
             String nombre = JOptionPane.showInputDialog(this, "Nombre del producto:");
-            if (nombre == null || nombre.trim().isEmpty()) return; // Cancelar si vacío
+            if (nombre == null || nombre.trim().isEmpty()) return; // Si cancela o vacío, salir
 
             String marca = JOptionPane.showInputDialog(this, "Marca:");
             if (marca == null) marca = "";
@@ -112,44 +112,47 @@ public class AdminWindow extends JFrame {
 
             String precioStr = JOptionPane.showInputDialog(this, "Precio:");
             if (precioStr == null) return; // Cancelar
-            double precio = Double.parseDouble(precioStr); // Convierte a double
+            double precio = Double.parseDouble(precioStr); // Convertir a double
 
             String stockStr = JOptionPane.showInputDialog(this, "Stock:");
             if (stockStr == null) return; // Cancelar
-            int stock = Integer.parseInt(stockStr); // Convierte a int
+            int stock = Integer.parseInt(stockStr); // Convertir a entero
 
-            Date fechaAlta = new Date(); // Fecha actual para alta producto
+            Date fechaAlta = new Date(); // Fecha actual para alta del producto
 
             String nombreProveedor = JOptionPane.showInputDialog(this, "Proveedor (nombre):");
             if (nombreProveedor == null) nombreProveedor = "";
 
+            // Crear objeto Proveedor y asignar nombre
             Proveedor proveedor = new Proveedor();
             proveedor.setNombre(nombreProveedor);
 
-            // Crea el producto nuevo con id null porque lo asigna la BD
+            // Crear nuevo producto con id null (lo asigna la BD)
             Producto nuevo = new Producto(null, nombre, marca, tipo, precio, stock, fechaAlta, proveedor);
 
-            productoDAO.insertar(nuevo);  // Inserta en BD
-            productoPanel.cargarProductos(); // Refresca tabla
-            textArea.setText("Producto agregado correctamente."); // Mensaje confirmación
+            productoDAO.insertar(nuevo);          // Insertar producto en la base de datos
+            productoPanel.cargarProductos();      // Actualizar tabla de productos
+            textArea.setText("Producto agregado correctamente."); // Mensaje éxito
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error al agregar producto: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    // Elimina el producto seleccionado en la tabla
+    // Metodo para eliminar el producto seleccionado en la tabla
     private void eliminarProducto() {
         int fila = productoPanel.getTabla().getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(this, "Selecciona un producto para eliminar.");
             return;
         }
-        Integer idProducto = (Integer) productoPanel.getTabla().getValueAt(fila, 0); // ID de la fila seleccionada
-        int confirm = JOptionPane.showConfirmDialog(this, "¿Seguro que quieres eliminar el producto con ID " + idProducto + "?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        Integer idProducto = (Integer) productoPanel.getTabla().getValueAt(fila, 0); // ID del producto
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "¿Seguro que quieres eliminar el producto con ID " + idProducto + "?",
+                "Confirmar", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
             try {
-                productoDAO.eliminar(idProducto);   // Elimina de BD
+                productoDAO.eliminar(idProducto);   // Elimina producto de BD
                 productoPanel.cargarProductos();    // Actualiza tabla
                 textArea.setText("Producto eliminado.");
             } catch (Exception ex) {
@@ -158,7 +161,7 @@ public class AdminWindow extends JFrame {
         }
     }
 
-    // Calcula el beneficio total sumando (precio * stock) de todos los productos
+    // Metodo para calcular beneficio total: suma (precio * stock) de todos productos
     private void calcularBeneficio() {
         try {
             double beneficio = productoDAO.calcularBeneficioTotal();
