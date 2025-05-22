@@ -40,8 +40,8 @@ public class UsuarioWindow extends JFrame {
         btnNombre.setPreferredSize(new Dimension(190, 40));
         btnMarca.setPreferredSize(new Dimension(190, 40));
         btnProveedor.setPreferredSize(new Dimension(190, 40));
-        btnPrecioMax.setPreferredSize(new Dimension(190, 40));
-        btnMostrarTodos.setPreferredSize(new Dimension(190, 40));
+        btnPrecioMax.setPreferredSize(new Dimension(230, 40));
+        btnMostrarTodos.setPreferredSize(new Dimension(150, 40));
 
         // Añadir botones al panel superior
         botonesPanel.add(btnNombre);
