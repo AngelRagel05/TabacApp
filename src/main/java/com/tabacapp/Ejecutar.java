@@ -1,7 +1,10 @@
 package com.tabacapp;
 
 import com.tabacapp.db.DBConnection;  // clase que abre conexión, debes tenerla
-import com.tabacapp.gui.*;
+import com.tabacapp.gui.AdminWindow;
+import com.tabacapp.gui.MenuWindow;
+import com.tabacapp.gui.ProductoPanel;
+import com.tabacapp.gui.UsuarioWindow;
 
 import javax.swing.*;
 import java.sql.Connection;

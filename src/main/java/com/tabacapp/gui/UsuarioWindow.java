@@ -10,14 +10,14 @@ public class UsuarioWindow extends JFrame {
 
     private ProductoDAO productoDAO;
     private ProductoPanel productoPanel;
-    private MenuWindow menuWindow;
+    private MenuWindow menuWindow2;
 
     public UsuarioWindow(MenuWindow menuWindow2, Connection conn) {
-        this.menuWindow = menuWindow2;
+        this.menuWindow2 = menuWindow2;
         this.productoDAO = new ProductoDAO(conn);
 
         setTitle("TabacApp - Usuario");
-        setSize(800, 600);
+        setSize(1000, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
@@ -32,6 +32,12 @@ public class UsuarioWindow extends JFrame {
         JButton btnProveedor = crearBoton("🔍 Buscar por proveedor");
         JButton btnPrecioMax = crearBoton("🔍 Buscar por precio máximo");
         JButton btnMostrarTodos = crearBoton("🔁 Mostrar todos");
+
+        btnNombre.setPreferredSize(new Dimension(190, 40));
+        btnMarca.setPreferredSize(new Dimension(190, 40));
+        btnProveedor.setPreferredSize(new Dimension(190, 40));
+        btnPrecioMax.setPreferredSize(new Dimension(190, 40));
+        btnMostrarTodos.setPreferredSize(new Dimension(190, 40));
 
         botonesPanel.add(btnNombre);
         botonesPanel.add(btnMarca);

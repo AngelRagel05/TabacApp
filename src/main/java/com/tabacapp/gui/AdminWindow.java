@@ -22,7 +22,7 @@ public class AdminWindow extends JFrame {
         this.productoDAO = new ProductoDAO(conn);
 
         setTitle("TabacApp - Panel Administrador");
-        setSize(800, 600);
+        setSize(1000, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
