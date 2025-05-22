@@ -4,11 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
 
-public class MenuWindow2 extends JFrame {
+public class MenuWindow extends JFrame {
 
     private Connection conn;
 
-    public MenuWindow2(Connection conn) {
+    public MenuWindow(Connection conn) {
         this.conn = conn;
 
         setTitle("TabacApp - Menú Principal");

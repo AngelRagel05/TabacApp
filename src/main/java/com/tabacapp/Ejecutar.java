@@ -14,7 +14,7 @@ public class Ejecutar {
             // Crear conexión una vez
             Connection conn = DBConnection.getConnection();
 
-            SwingUtilities.invokeLater(() -> new MenuWindow2(conn));
+            SwingUtilities.invokeLater(() -> new MenuWindow(conn));
 
         } catch (Exception e) {
             System.err.println("Error iniciando aplicación: " + e.getMessage());

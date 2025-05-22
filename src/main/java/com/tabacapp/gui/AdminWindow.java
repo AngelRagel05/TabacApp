@@ -15,15 +15,15 @@ public class AdminWindow extends JFrame {
     private ProductoPanel productoPanel;
     private JTextArea textArea;
     private Connection conn;
-    private MenuWindow2 menuWindow2;
+    private MenuWindow menuWindow2;
 
-    public AdminWindow(MenuWindow2 menuWindow2, Connection conn) {
+    public AdminWindow(MenuWindow menuWindow2, Connection conn) {
         this.menuWindow2 = this.menuWindow2;
         this.productoDAO = new ProductoDAO(conn);
 
         setTitle("TabacApp - Panel Administrador");
         setSize(800, 600);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
