@@ -187,7 +187,7 @@ public class ProductoDAO {
     }
 
     /**
-     * Método interno que convierte una fila del ResultSet en un objeto Producto.
+     * Metodo interno que convierte una fila del ResultSet en un objeto Producto.
      * También crea el objeto Proveedor si está presente.
      */
     private Producto mapearProducto(ResultSet rs) throws SQLException {
